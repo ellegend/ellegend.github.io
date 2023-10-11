@@ -1,20 +1,22 @@
-const url = 'https://qr-code-and-barcode-manager.p.rapidapi.com/scan?format=QR_CODE';
-const data = new FormData();
-data.append('file', 'entrada_1.png');
+const axios = require('axios');
+
+const encodedParams = new URLSearchParams();
+encodedParams.set('imageBase64', '<REQUIRED>');
 
 const options = {
-	method: 'POST',
-	headers: {
-		'X-RapidAPI-Key': '6eabc9718fmshbafb842632c779ap171d6fjsn2de8470bcddf',
-		'X-RapidAPI-Host': 'qr-code-and-barcode-manager.p.rapidapi.com'
-	},
-	body: data
+  method: 'POST',
+  url: 'https://mrz-scanner.p.rapidapi.com/ScanMRZ',
+  headers: {
+    'content-type': 'application/x-www-form-urlencoded',
+    'X-RapidAPI-Key': '6eabc9718fmshbafb842632c779ap171d6fjsn2de8470bcddf',
+    'X-RapidAPI-Host': 'mrz-scanner.p.rapidapi.com'
+  },
+  data: encodedParams,
 };
 
 try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
+	const response = await axios.request(options);
+	console.log(response.data);
 } catch (error) {
 	console.error(error);
 }
